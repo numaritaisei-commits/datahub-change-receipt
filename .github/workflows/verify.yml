@@ -1,0 +1,33 @@
+name: verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lightweight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          python-version: "3.11"
+          version: "0.11.26"
+      - run: uv sync --locked --all-groups
+      - run: uv run ruff check .
+      - run: uv run mypy
+      - run: uv run pytest
+      - name: Fixture smoke test
+        run: >-
+          uv run datahub-change-receipt
+          --request examples/change-request.json
+          --fixture fixtures/catalog-context.json
+          --json-out /tmp/change-receipt.json
+          --markdown-out /tmp/change-receipt.md
