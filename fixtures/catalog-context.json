@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)": {
+      "name": "analytics.orders",
+      "owners": [
+        "urn:li:corpGroup:data-platform"
+      ],
+      "schema_fields": [
+        "customer_id",
+        "legacy_status",
+        "order_id",
+        "order_total"
+      ]
+    }
+  },
+  "downstream": {
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)": [
+      {
+        "degree": 1,
+        "entity_type": "DATASET",
+        "name": "analytics.daily_orders",
+        "owners": [
+          "urn:li:corpGroup:analytics"
+        ],
+        "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.daily_orders,PROD)"
+      },
+      {
+        "degree": 2,
+        "entity_type": "DASHBOARD",
+        "name": "Operations overview",
+        "owners": [],
+        "urn": "urn:li:dashboard:(looker,operations_overview)"
+      }
+    ]
+  },
+  "query_signals": {
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)#customer_id": [
+      {
+        "fingerprint": "fixture:manual-customer-join-001",
+        "source": "MANUAL"
+      }
+    ],
+    "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)#legacy_status": [
+      {
+        "fingerprint": "fixture:system-status-filter-001",
+        "source": "SYSTEM"
+      }
+    ]
+  },
+  "gaps": []
+}
