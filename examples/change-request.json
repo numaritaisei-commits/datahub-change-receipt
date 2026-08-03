@@ -1,0 +1,16 @@
+{
+  "asset_urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)",
+  "change_id": "example-orders-v2",
+  "changes": [
+    {
+      "column": "legacy_status",
+      "kind": "drop"
+    },
+    {
+      "column": "customer_id",
+      "kind": "rename",
+      "to": "buyer_id"
+    }
+  ],
+  "max_hops": 2
+}

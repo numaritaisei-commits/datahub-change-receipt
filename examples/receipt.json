@@ -1,0 +1,83 @@
+{
+  "decision": "BLOCK",
+  "evidence": {
+    "downstream_assets": [
+      {
+        "degree": 1,
+        "entity_type": "DATASET",
+        "name": "analytics.daily_orders",
+        "owners": [
+          "urn:li:corpGroup:analytics"
+        ],
+        "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.daily_orders,PROD)"
+      },
+      {
+        "degree": 2,
+        "entity_type": "DASHBOARD",
+        "name": "Operations overview",
+        "owners": [],
+        "urn": "urn:li:dashboard:(looker,operations_overview)"
+      }
+    ],
+    "entity": {
+      "name": "analytics.orders",
+      "owners": [
+        "urn:li:corpGroup:data-platform"
+      ],
+      "schema_fields": [
+        "customer_id",
+        "legacy_status",
+        "order_id",
+        "order_total"
+      ],
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)"
+    },
+    "gaps": [],
+    "query_signals": [
+      {
+        "column": "legacy_status",
+        "fingerprint": "fixture:system-status-filter-001",
+        "source": "SYSTEM"
+      },
+      {
+        "column": "customer_id",
+        "fingerprint": "fixture:manual-customer-join-001",
+        "source": "MANUAL"
+      }
+    ],
+    "real_datahub_verified": false,
+    "source_mode": "fixture"
+  },
+  "reasons": [
+    "drop on `legacy_status` adds 40 risk points.",
+    "rename on `customer_id` adds 25 risk points.",
+    "2 downstream asset(s) add 10 risk points.",
+    "1 downstream asset(s) have no owner in the collected context.",
+    "1 production query signal(s) add 10 risk points.",
+    "1 manual query signal(s) add 5 risk points."
+  ],
+  "receipt_id": "dcr-d191ab33d00bfdd9",
+  "recommended_checks": [
+    "Notify the listed downstream owners and attach their validation evidence.",
+    "Assign or identify owners for unowned downstream assets.",
+    "Run regression checks for every production query fingerprint.",
+    "Re-run the receipt after mitigations; do not override missing evidence."
+  ],
+  "request": {
+    "asset_urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,analytics.orders,PROD)",
+    "change_id": "example-orders-v2",
+    "changes": [
+      {
+        "column": "legacy_status",
+        "kind": "drop"
+      },
+      {
+        "column": "customer_id",
+        "kind": "rename",
+        "to": "buyer_id"
+      }
+    ],
+    "max_hops": 2
+  },
+  "risk_score": 100
+}

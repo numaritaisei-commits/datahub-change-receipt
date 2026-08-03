@@ -1,0 +1,16 @@
+{
+  "asset_urn": "urn:li:dataset:(urn:li:dataPlatform:postgres,change_receipt.orders,PROD)",
+  "change_id": "synthetic-live-orders-v2",
+  "changes": [
+    {
+      "column": "legacy_status",
+      "kind": "drop"
+    },
+    {
+      "column": "customer_id",
+      "kind": "rename",
+      "to": "buyer_id"
+    }
+  ],
+  "max_hops": 2
+}
