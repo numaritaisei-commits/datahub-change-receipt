@@ -1,0 +1,45 @@
+[project]
+name = "datahub-change-receipt"
+version = "0.1.0"
+description = "Deterministic pre-merge change receipts grounded in DataHub metadata context."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "DataHub Change Receipt contributors" }]
+dependencies = [
+  "datahub-agent-context==1.6.0.17",
+]
+
+[project.scripts]
+datahub-change-receipt = "datahub_change_context.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+  "mypy>=1.15,<2",
+  "pytest>=8,<10",
+  "ruff>=0.11,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/datahub_change_context"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101"]
