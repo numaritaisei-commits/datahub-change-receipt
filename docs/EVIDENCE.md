@@ -12,9 +12,9 @@ This file prevents fixture behavior from being mistaken for a real integration r
 | Deterministic unit tests | Parsing, risk policy, stable receipt IDs, write/read/delete guards | Network or DataHub behavior | Ready |
 | Official-adapter contract test | Agent Context Kit call boundary and response minimization | Reachability or authentication | Ready |
 | Fixture CLI smoke test | End-to-end local JSON/Markdown generation | Real DataHub data or GMS success | Ready |
-| Live DataHub read smoke | Entity/schema/lineage/query calls against Core/Cloud | Production adoption | Workflow ready; public run pending |
-| Approval-gated write/read/delete smoke | Decision survives a second-process read with exact content and asset relation | Production adoption or retention beyond the ephemeral proof | Workflow ready; public run pending, never automatic |
-| Public video under 3 minutes | Functioning project with visible DataHub evidence | Prize outcome | Pending |
+| Live DataHub read smoke | Entity/schema/lineage/query calls against Core/Cloud | Production adoption | Not run; manual workflow intentionally undispatched because the free runner has no safe documented disk margin |
+| Approval-gated write/read/delete smoke | Decision survives a second-process read with exact content and asset relation | Production adoption or retention beyond the ephemeral proof | Not run and never automatic; synthetic protocol guards only |
+| Public video under 3 minutes | Functioning accountless fixture path, deterministic receipt, adapter contract, and evidence boundary | Live DataHub behavior or prize outcome | Public 1:59 synthetic demo: <https://youtu.be/9wlVUFmJXIU> |
 
 ## Privacy and security defaults
 
