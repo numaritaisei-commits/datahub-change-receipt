@@ -3,19 +3,20 @@
 [![verify](https://github.com/numaritaisei-commits/datahub-change-receipt/actions/workflows/verify.yml/badge.svg)](https://github.com/numaritaisei-commits/datahub-change-receipt/actions/workflows/verify.yml)
 
 DataHub Change Receipt is a deterministic pre-merge agent that turns a proposed schema
-change into a reviewable evidence bundle. It gathers schema, ownership, downstream lineage,
-and query-use context through the open-source **DataHub Agent Context Kit**, then produces a
-stable `PASS`, `WARN`, `BLOCK`, or `INSUFFICIENT_CONTEXT` decision with JSON and Markdown
-receipts.
+change into a reviewable evidence bundle. Its `datahub` mode is implemented to gather schema,
+ownership, downstream lineage, and query-use context through the open-source **DataHub Agent
+Context Kit**, then produce a stable `PASS`, `WARN`, `BLOCK`, or `INSUFFICIENT_CONTEXT` decision
+with JSON and Markdown receipts. Current public execution proof is fixture/contract-only.
 
 The project is intentionally different from a lineage chatbot: it creates a reproducible
 artifact for a pull request, minimizes raw query exposure, and can persist the decision for
 the next person or agent only behind an explicit approval gate.
 
 For a concrete reviewer workflow, consider a pull request that drops `legacy_status` from an
-orders dataset. The agent checks the real catalog identity, schema, downstream lineage, owners,
-and query-use signals before producing a stable decision that a data-platform reviewer can
-attach to the change review.
+orders dataset. When connected to a DataHub endpoint, the implemented adapter checks catalog
+identity, schema, downstream lineage, owners, and query-use signals before producing a stable
+decision that a data-platform reviewer can attach to the change review. The public judge path
+uses the separately labeled deterministic fixture.
 
 ## Evidence boundary
 
@@ -30,15 +31,16 @@ attach to the change review.
 
 ## Development status
 
-The local publication candidate includes the application, deterministic fixture path, real
-DataHub adapter, approval-gated decision write-back, tests, sample outputs, and a fail-closed
+The local publication candidate includes the application, deterministic fixture path, DataHub-
+mode adapter, approval-gated decision write-back, tests, sample outputs, and a fail-closed
 manual live workflow. The public live workflow has not run yet, so no live-success claim is
 made. See [the requirements map](docs/REQUIREMENTS.md), [evidence ledger](docs/EVIDENCE.md),
 and [live-proof boundary](docs/LIVE_SMOKE.md).
 
 ## Why this is DataHub-native
 
-For each proposed change, the real adapter invokes Agent Context Kit tools to collect:
+For each proposed change, the DataHub-mode adapter is implemented to invoke Agent Context Kit
+tools to collect:
 
 1. `get_entities` for identity and ownership;
 2. `list_schema_fields` for the exact changed columns;
@@ -90,9 +92,9 @@ Python 3.11 and the same locked dependency graph.
   DataHub-native path, not a substitute for the runnable judge quick path. The workflow has not
   been dispatched. Its manual write-back job is maintainer-only; judges are not asked to provide
   a token or dispatch it.
-- The repository, public demo video, successful lightweight verification logs, and synthetic
-  proof artifact will remain publicly accessible and free through the judging period ending
-  August 31, 2026.
+- The repository, public demo video, successful lightweight verification logs, and committed
+  synthetic sample artifacts will remain publicly accessible and free through the judging period
+  ending August 31, 2026.
 
 ## Run lightweight verification
 
@@ -110,7 +112,8 @@ The manual `live DataHub Core smoke` GitHub Actions workflow is deliberately sep
 normal CI. It can run only in the expected public repository and starts a pinned open-source
 DataHub Core quickstart on an ephemeral standard runner after CPU, memory, and disk checks.
 It seeds synthetic metadata, runs this application through the real Agent Context Kit,
-mechanically verifies entity/schema/lineage evidence, and uploads a 35-day synthetic receipt.
+mechanically verifies entity/schema/lineage evidence, and uploads a synthetic receipt with
+35-day artifact retention.
 The dispatch requires an explicit write-back boolean; the CLI and provider independently repeat
 the approval/evidence gate before creating one synthetic decision through `save_document`. A
 second process reads it back, verifies its content and asset relation, and deletes it. Cleanup is
