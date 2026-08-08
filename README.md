@@ -86,11 +86,13 @@ Python 3.11 and the same locked dependency graph.
 
 - The public repository itself is the Project/test URL and contains the complete free CLI path,
   source, fixtures, samples, tests, workflows, and setup instructions.
-- The successful public live workflow run is supporting provenance for the DataHub-native path,
-  not a substitute for the runnable judge quick path. Its manual write-back job is
-  maintainer-only; judges are not asked to provide a token or dispatch it.
-- The repository, public demo video, successful workflow logs, and synthetic proof artifact will
-  remain publicly accessible and free through the judging period ending August 31, 2026.
+- A future successful public live workflow run would be supporting provenance for the
+  DataHub-native path, not a substitute for the runnable judge quick path. The workflow has not
+  been dispatched. Its manual write-back job is maintainer-only; judges are not asked to provide
+  a token or dispatch it.
+- The repository, public demo video, successful lightweight verification logs, and synthetic
+  proof artifact will remain publicly accessible and free through the judging period ending
+  August 31, 2026.
 
 ## Run lightweight verification
 
